@@ -26,3 +26,14 @@ export interface SignUpModalStore {
   open: () => void;
   close: () => void;
 }
+
+export type PropertyType = {
+  id: string;
+  title: string;
+  image_url: string;
+  price_per_day: number;
+};
+
+export type PropertyProps = {
+  property: PropertyType;
+};
