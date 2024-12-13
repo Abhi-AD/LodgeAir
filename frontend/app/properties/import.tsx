@@ -1,0 +1,1 @@
+export { default as PropertyDetailPage } from "./[id]/page";
