@@ -21,3 +21,4 @@ export { default as CustomButton } from "./Form/CustomButton";
 export { default as Modal } from "./Modals/Modal";
 export { default as LoginModal } from "./Modals/LoginModal";
 export { default as SignUpModal } from "./Modals/SignUpModal";
+export { default as LogoutButton } from "./Modals/LogoutButton";

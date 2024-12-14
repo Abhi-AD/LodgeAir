@@ -1,10 +1,11 @@
 'use client'
 import { useState } from "react";
 import { BiMenu, BiUserCircle } from "react-icons/bi";
-import { MenuLink } from "@/app/components/import";
+import { LogoutButton, MenuLink } from "@/app/components/import";
 import { useLoginModal, useSignUpModal } from "@/app/hooks/import";
+import { UserNavProps } from "@/app/type/type";
 
-const UserNav = () => {
+const UserNav: React.FC<UserNavProps> = ({ userId }) => {
      const loginModal = useLoginModal()
      const signupModal = useSignUpModal()
      const [isOpen, setIsOpen] = useState(false);
@@ -16,20 +17,28 @@ const UserNav = () => {
                </button>
                {isOpen && (
                     <div className="w-[220px] absolute top-[60px] right-0 bg-white border rounded-xl shadow-md flex flex-col cursor-pointer">
-                         <MenuLink
-                              label='Log In'
-                              onClick={() => {
-                                   setIsOpen(false);
-                                   loginModal.open();
-                              }}
-                         />
-                         <MenuLink
-                              label='Sign up'
-                              onClick={() => {
-                                   setIsOpen(false);
-                                   signupModal.open();
-                              }}
-                         />
+                         {userId ? (
+                              <LogoutButton />
+
+                         ) : (
+                              <>
+                                   <MenuLink
+                                        label='Log In'
+                                        onClick={() => {
+                                             setIsOpen(false);
+                                             loginModal.open();
+                                        }}
+                                   />
+                                   <MenuLink
+                                        label='Sign up'
+                                        onClick={() => {
+                                             setIsOpen(false);
+                                             signupModal.open();
+                                        }}
+                                   />
+                              </>
+
+                         )}
                     </div>
                )}
           </div>
