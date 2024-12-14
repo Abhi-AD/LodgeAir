@@ -37,3 +37,7 @@ export type PropertyType = {
 export type PropertyProps = {
   property: PropertyType;
 };
+
+export interface UserNavProps {
+  userId?: string | null;
+}
