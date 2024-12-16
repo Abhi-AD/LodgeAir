@@ -11,3 +11,9 @@ class PropertiesListSerializer(serializers.ModelSerializer):
 
     def get_image_url(self, obj):
         return obj.image_url()  # Call the method to get the image URL
+
+
+class PropertySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Property
+        fields = "__all__"  # This will include all the fields in the Property model
