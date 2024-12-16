@@ -1,9 +1,12 @@
+"use client";
 import { PropertyProps } from "@/app/type/type";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const PropertyListItem: React.FC<PropertyProps> = ({ property }) => {
+     const router = useRouter();
      return (
-          <div className="cursor-pointer">
+          <div className="cursor-pointer" onClick={() => router.push(`/properties/${property.id}`)}>
                <div className="overflow-hidden aspect-square rounded-xl">
                     <Image
                          src={property.image_url}
@@ -20,7 +23,7 @@ const PropertyListItem: React.FC<PropertyProps> = ({ property }) => {
                <div className="mt-2">
                     <p className="text-sm text-gray-500"><strong>${property.price_per_day}</strong> per day</p>
                </div>
-          </div>
+          </div >
      )
 }
 export default PropertyListItem;
