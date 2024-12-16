@@ -16,7 +16,7 @@ const Navbar = async () => {
                               <SearchFilter />
                          </div>
                          <div className="flex items-center space-x-6">
-                              <AddPropteryButton />
+                              <AddPropteryButton userId={userId} />
                               <UserNav userId={userId} />
                          </div>
                     </div>
