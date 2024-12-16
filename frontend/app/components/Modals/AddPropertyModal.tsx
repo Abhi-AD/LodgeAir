@@ -33,8 +33,8 @@ const AddPropertyModal = () => {
           }
      }
 
-     const submitForm = async () => {
 
+     const submitForm = async () => {
           if (dataCategory && dataTitle && dataDescription && dataPrice && dataCountry && dataImage) {
                const formData = new FormData();
                formData.append("category", dataCategory);
@@ -50,19 +50,17 @@ const AddPropertyModal = () => {
                console.log("submitForm", formData);
 
                const response = await apiService.posttoken("api/properties/create/", formData);
-               if (response.success) {
+               if (response.sucess) {
                     console.log("Property added successfully");
                     router.push("/");
                     addPropertyModal.close();
-               }
-               else {
+               } else {
                     console.log("Failed to add property");
                     const tmpErrors: string[] = Object.values(response).map((error: any) => {
                          return error;
-                    })
+                    });
                     setErrors(tmpErrors);
                }
-
           }
      }
 
@@ -171,6 +169,11 @@ const AddPropertyModal = () => {
                                    </div>
                               )}
                          </div>
+                         {errors.map((error, index) => {
+                              <div key={index} className="p-5 mb-4 bg-red-500 text-white rounded-xl opacity-80">
+                                   {error}
+                              </div>
+                         })}
                          <CustomButton
                               label="Previous"
                               className="mb-2 bg-black hover:bg-gray-800"
