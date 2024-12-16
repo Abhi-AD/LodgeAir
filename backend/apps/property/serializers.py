@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from apps.property.models import Property
+from apps.useraccount.serializers import UserDetailsSerializer
 
 
 class PropertiesListSerializer(serializers.ModelSerializer):
@@ -10,10 +11,22 @@ class PropertiesListSerializer(serializers.ModelSerializer):
         fields = ["id", "title", "price_per_day", "image_url"]
 
     def get_image_url(self, obj):
-        return obj.image_url()  # Call the method to get the image URL
+        return obj.image_url()
 
 
 class PropertySerializer(serializers.ModelSerializer):
+    lanlord = UserDetailsSerializer(read_only=True, many=False)
+
     class Meta:
         model = Property
-        fields = "__all__"  # This will include all the fields in the Property model
+        fields = [
+            "id",
+            "title",
+            "description",
+            "price_per_day",
+            "image_url",
+            "bedrooms",
+            "bathrooms",
+            "guests",
+            "lanlord",
+        ]
