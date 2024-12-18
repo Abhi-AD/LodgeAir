@@ -5,7 +5,7 @@ from rest_framework.decorators import (
     permission_classes,
 )
 
-from apps.property.models import Property
+from apps.property.models import Property, Reservation
 from apps.property.forms import PropertyForm
 from apps.property.serializers import PropertiesListSerializer, PropertySerializer
 
@@ -36,6 +36,31 @@ def create_properties(request):
         property = form.save(commit=False)
         property.lanlord = request.user
         property.save()
-        return JsonResponse({"sucess": True})
+        return JsonResponse({"success": True})
     else:
         return JsonResponse({"error": form.errors.as_json()}, status=400)
+
+
+@api_view(["POST"])
+def book_property(request, pk):
+    try:
+        start_date = request.POST.get("start_date", "")
+        end_date = request.POST.get("end_date", "")
+        number_of_day = request.POST.get("number_of_day", "")
+        total_price = request.POST.get("total_price", "")
+        guests = request.POST.get("guests", "")
+        property = Property.objects.get(pk=pk)
+        Reservation.objects.create(
+            property=property,
+            start_date=start_date,
+            end_date=end_date,
+            number_of_day=number_of_day,
+            total_price=total_price,
+            guests=guests,
+            created_by=request.user,
+        )
+        return JsonResponse({"success": True})
+
+    except Exception as e:
+        print("Error", e)
+        return JsonResponse({"success": False})
