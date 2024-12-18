@@ -4,8 +4,10 @@ import { BiMenu, BiUserCircle } from "react-icons/bi";
 import { LogoutButton, MenuLink } from "@/app/components/import";
 import { useLoginModal, useSignUpModal } from "@/app/hooks/import";
 import { UserNavProps } from "@/app/type/type";
+import { useRouter } from "next/navigation";
 
 const UserNav: React.FC<UserNavProps> = ({ userId }) => {
+     const router = useRouter();
      const loginModal = useLoginModal()
      const signupModal = useSignUpModal()
      const [isOpen, setIsOpen] = useState(false);
@@ -18,7 +20,17 @@ const UserNav: React.FC<UserNavProps> = ({ userId }) => {
                {isOpen && (
                     <div className="w-[220px] absolute top-[60px] right-0 bg-white border rounded-xl shadow-md flex flex-col cursor-pointer">
                          {userId ? (
-                              <LogoutButton />
+                              <>
+                                   <MenuLink
+                                        label='My properties'
+                                        onClick={() => {
+                                             setIsOpen(false);
+                                             router.push(`/myproperties`)
+                                        }}
+                                   />
+
+                                   <LogoutButton />
+                              </>
 
                          ) : (
                               <>
