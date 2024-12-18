@@ -47,7 +47,7 @@ const apiService = {
   },
   posttoken: async function (url: string, data: any): Promise<any> {
     const token = await getAccessToken();
-    console.log("Token:", token); // Log the token here
+    console.log("Token:", token);
     return new Promise((resolve, reject) => {
       fetch(`${process.env.NEXT_PUBLIC_API_HOST}${url}`, {
         method: "POST",
