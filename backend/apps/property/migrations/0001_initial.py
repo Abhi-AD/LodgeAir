@@ -16,20 +16,35 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Property',
+            name="Property",
             fields=[
-                ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('title', models.CharField(max_length=255)),
-                ('description', models.TextField()),
-                ('price_per', models.IntegerField()),
-                ('bedrooms', models.IntegerField()),
-                ('guests', models.IntegerField()),
-                ('country', models.CharField(max_length=255)),
-                ('country_code', models.CharField(max_length=10)),
-                ('category', models.CharField(max_length=255)),
-                ('image', models.ImageField(upload_to='uploads/property')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('lanlord', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='properties', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.UUIDField(
+                        default=uuid.uuid4,
+                        editable=False,
+                        primary_key=True,
+                        serialize=False,
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                ("description", models.TextField()),
+                ("price_per", models.IntegerField()),
+                ("bedrooms", models.IntegerField()),
+                ("guests", models.IntegerField()),
+                ("country", models.CharField(max_length=255)),
+                ("country_code", models.CharField(max_length=10)),
+                ("category", models.CharField(max_length=255)),
+                ("image", models.ImageField(upload_to="uploads/property")),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "landlord",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="properties",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]

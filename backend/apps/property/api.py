@@ -7,7 +7,11 @@ from rest_framework.decorators import (
 
 from apps.property.models import Property, Reservation
 from apps.property.forms import PropertyForm
-from apps.property.serializers import PropertiesListSerializer, PropertySerializer
+from apps.property.serializers import (
+    PropertiesListSerializer,
+    PropertySerializer,
+    ReservationsListSerializer,
+)
 
 
 @api_view(["GET"])
@@ -15,6 +19,10 @@ from apps.property.serializers import PropertiesListSerializer, PropertySerializ
 @permission_classes([])
 def properties_list(request):
     properties = Property.objects.all()
+    landlord_id = request.GET.get("landlord_id", "")
+    if landlord_id:
+        properties = properties.filter(landlord_id=landlord_id)
+
     serializer = PropertiesListSerializer(properties, many=True)
     return JsonResponse({"data": serializer.data})
 
@@ -34,11 +42,21 @@ def create_properties(request):
     form = PropertyForm(request.POST, request.FILES)
     if form.is_valid():
         property = form.save(commit=False)
-        property.lanlord = request.user
+        property.landlord = request.user
         property.save()
         return JsonResponse({"success": True})
     else:
         return JsonResponse({"error": form.errors.as_json()}, status=400)
+
+
+@api_view(["GET"])
+@authentication_classes([])
+@permission_classes([])
+def property_reservations(request, pk):
+    property = Property.objects.get(pk=pk)
+    reservations = property.reservations.all()
+    serializer = ReservationsListSerializer(reservations, many=True)
+    return JsonResponse(serializer.data, safe=False)
 
 
 @api_view(["POST"])
