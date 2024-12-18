@@ -25,7 +25,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({ property, userI
      const guestsRange = Array.from({ length: property.guests }, (_, index) => index + 1)
 
 
-
+     // booking property
      const performBooking = async () => {
           console.log('performBooking', userId);
 
@@ -41,7 +41,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({ property, userI
 
                          console.log("Formdata", formData);
 
-                         const response = await apiService.posttoken(`/api/properties/${property.id}/book/`, formData);
+                         const response = await apiService.posttoken(`api/properties/${property.id}/book/`, formData);
 
                          console.log('Response12345t6ytrewqwertg:', response);
 
@@ -61,10 +61,7 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({ property, userI
           }
      };
 
-
-
-
-
+     // date rangering
      const _setDateRange = (selection: any) => {
           const newStartDate = new Date(selection.startDate);
           const newEndDate = new Date(selection.endDate);
@@ -80,7 +77,22 @@ const ReservationSidebar: React.FC<ReservationSidebarProps> = ({ property, userI
           })
      }
 
+     // getReservations
+     const getReservations = async () => {
+          const reservations = await apiService.get(`api/properties/${property.id}/reservations/`)
+          let dates: Date[] = [];
+          reservations.forEach((reservation: any) => {
+               const range = eachDayOfInterval({
+                    start: new Date(reservation.start_date),
+                    end: new Date(reservation.end_date)
+               });
+               dates = [...dates, ...range];
+          })
+          setBookedDates(dates);
+     }
+
      useEffect(() => {
+          getReservations();
           if (dateRange.startDate && dateRange.endDate) {
                const dayCount = differenceInDays(
                     dateRange.endDate,

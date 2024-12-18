@@ -62,6 +62,9 @@ export type PropertyType = {
   price_per_day: number;
 };
 
+export interface PropertyListProps {
+  landlord_id?: string | null;
+}
 export type PropertyProps = {
   property: PropertyType;
 };
