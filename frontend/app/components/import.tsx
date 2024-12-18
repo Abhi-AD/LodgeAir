@@ -18,6 +18,7 @@ export { default as ConversationDetail } from "./Inbox/ConversationDetail";
 
 export { default as CustomButton } from "./Form/CustomButton";
 export { default as SelectCountry } from "./Form/SelectCountry";
+export { default as DatePicker } from "./Form/Calendar";
 
 export { default as Modal } from "./Modals/Modal";
 export { default as LoginModal } from "./Modals/LoginModal";

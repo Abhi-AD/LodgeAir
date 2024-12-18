@@ -1,3 +1,21 @@
+import { Range, RangeKeyDict } from "react-date-range";
+export interface DatePickerProps {
+  value: Range;
+  onChange: (value: RangeKeyDict) => void;
+  bookedDates?: Date[];
+}
+
+export type Property = {
+  id: string;
+  guests: number;
+  price_per_day: number;
+};
+
+export interface ReservationSidebarProps {
+  userId: string | null;
+  property: Property;
+}
+
 export interface CustomButtonProps {
   label: string;
   className?: string;
