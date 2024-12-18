@@ -2,6 +2,7 @@ import { ReservationSidebar } from "@/app/components/import";
 import { getUserId } from "@/app/lib/actions";
 import apiService from "@/app/services/apiService";
 import Image from "next/image";
+import Link from "next/link";
 
 const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
      const property = await apiService.get(`/api/properties/${params.id}/`)
@@ -23,10 +24,10 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
                          <h1 className="mb-4 text-4xl">{property.title}</h1>
                          <span className="mb-6 block text-lg text-gray-600">{property.guests} guests - {property.bedrooms} bedrooms - {property.bathrooms} bathroom</span>
                          <hr />
-                         <div className="py-6 flex items-center space-x-4">
-                              {property.lanlord.avatar_url && (
+                         <Link href={`/landlords/${property.landlord.id}`} className="py-6 flex items-center space-x-4">
+                              {property.landlord.avatar_url && (
                                    <Image
-                                        src={property.lanlord.avatar_url}
+                                        src={property.landlord.avatar_url}
                                         width={50}
                                         height={50}
                                         className="w-12 h-12 rounded-full"
@@ -34,8 +35,8 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
                                    />
 
                               )}
-                              <p><strong>{property.lanlord.name}</strong> is your host.</p>
-                         </div>
+                              <p><strong>{property.landlord.name}</strong> is your host.</p>
+                         </Link>
                          <hr />
                          <p className="mt-6 text-lg">{property.description}</p>
                     </div>
