@@ -11,12 +11,12 @@ const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
           <div className="max-w-[1500px] mx-auto px-6 pb-6">
                <div className="w-full h-[64vh] overflow-hidden rounded-xl relative ">
                     <Image
-                         src="/beach_house.jpeg"
+                         src={property.image_url}
                          width={50}
                          height={50}
                          sizes="(max-width:768px) 768px, (max-width:1200px) 768px,768px"
                          className="object-cover transition h-full w-full"
-                         alt="Beach house"
+                         alt={property.title}
                     />
                </div>
                <div className="mt-4 grid grid-cols-1 md:grid-cols-5 gap-4">
