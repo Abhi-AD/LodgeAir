@@ -5,6 +5,7 @@ from apps.property.api import (
     properties_detail,
     book_property,
     property_reservations,
+    toggle_favorite,
 )
 
 urlpatterns = [
@@ -16,5 +17,8 @@ urlpatterns = [
         "properties/<uuid:pk>/reservations/",
         property_reservations,
         name="property_reservations",
+    ),
+    path(
+        "properties/<uuid:pk>/toggle_favorite/", toggle_favorite, name="toggle_favorite"
     ),
 ]
