@@ -13,6 +13,8 @@ export { default as ReservationSidebar } from "./Properties/ReservationSidebar";
 
 export { default as ContactButton } from "./ContactButton/ContactButton";
 
+export { default as FavoriteButton } from "./FavoriteButton/FavoriteButton";
+
 export { default as Conversation } from "./Inbox/Conversation";
 export { default as ConversationDetail } from "./Inbox/ConversationDetail";
 

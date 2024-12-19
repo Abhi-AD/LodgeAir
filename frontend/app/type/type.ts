@@ -60,6 +60,7 @@ export type PropertyType = {
   title: string;
   image_url: string;
   price_per_day: number;
+  is_favorite: boolean;
 };
 
 export interface PropertyListProps {
@@ -67,7 +68,13 @@ export interface PropertyListProps {
 }
 export type PropertyProps = {
   property: PropertyType;
+  markFavorite?: (is_favorite: boolean) => void;
 };
+export interface FavoriteButtonProps {
+  id: string;
+  is_favorite: boolean;
+  markFavorite: (is_favorite: boolean) => void;
+}
 
 export interface UserNavProps {
   userId?: string | null;
