@@ -65,6 +65,7 @@ export type PropertyType = {
 
 export interface PropertyListProps {
   landlord_id?: string | null;
+  favorites?: boolean | null;
 }
 export type PropertyProps = {
   property: PropertyType;
