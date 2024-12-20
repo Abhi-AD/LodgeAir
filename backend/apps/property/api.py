@@ -20,22 +20,24 @@ from apps.useraccount.models import User
 @authentication_classes([])
 @permission_classes([])
 def properties_list(request):
-    token_string = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM5ODA4MTc5LCJpYXQiOjE3MzQ2MjQxNzksImp0aSI6ImQwMDdmZDJmOTAwNjQ4Y2ZiYjZjOTA2ZjkwMjliZDBjIiwidXNlcl9pZCI6IjZlMDJiMmMyLTU1NDAtNGVlOS1hMjJiLWE3YTJhOWI3Zjk4ZCJ9.-PS-hH4n-DSvOnsSA1rMi5Agwx5NkunGiD7EwHHKfkrm3y-LiJP3qMTqZy-yS80wrqGxtfWLVtnTn8_qxo1SlA"
-
     try:
         token = request.META["HTTP_AUTHORIZATION"].split("Bearer ")[1]
-        token = AccessToken(token_string)
+        token = AccessToken(token)
         user_id = token.payload["user_id"]
         user = User.objects.get(pk=user_id)
+        print(f"Logged-in User: {user.name} (ID: {user.id}, Email: {user.email})")
     except Exception as e:
         user = None
-
+        print(f"Error in retrieving user: {e}")
     favorites = []
     properties = Property.objects.all()
+    # filter
+    is_favorites = request.GET.get("is_favorites", "")
     landlord_id = request.GET.get("landlord_id", "")
     if landlord_id:
         properties = properties.filter(landlord_id=landlord_id)
-
+    if is_favorites:
+        properties = properties.filter(favorited__in=[user])
     if user:
         for property in properties:
             if user in property.favorited.all():
