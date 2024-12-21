@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     # custom app
     "apps.useraccount",
     "apps.property",
+    "apps.chat",
 ]
 
 MIDDLEWARE = [
