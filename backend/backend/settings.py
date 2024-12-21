@@ -37,6 +37,11 @@ AUTH_USER_MODEL = "useraccount.User"
 SITE_ID = 1
 
 WEBSITE_URL = "http://localhost:8000"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    }
+}
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=60),
@@ -56,6 +61,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 # Application definition
 
 INSTALLED_APPS = [
+    "daphne",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -109,8 +115,8 @@ TEMPLATES = [
         },
     },
 ]
-
 WSGI_APPLICATION = "backend.wsgi.application"
+ASGI_APPLICATION = "backend.asgi.application"
 
 
 # Database
