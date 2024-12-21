@@ -112,3 +112,19 @@ export interface ConversationProps {
   conversation: ConversationType;
   userId: string;
 }
+
+export type MessageType = {
+  id: string;
+  name: string;
+  body: string;
+  conversationId: string;
+  sent_to: UserType;
+  created_by: UserType;
+};
+
+export interface ConversationDetailProps {
+  token: string;
+  userId: string;
+  conversation: ConversationType;
+  // messages: MessageType[];
+}
