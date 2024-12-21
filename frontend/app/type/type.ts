@@ -95,3 +95,20 @@ export interface SelectCountryProps {
   value?: SelectCountryValue;
   onChange: (value: SelectCountryValue) => void;
 }
+
+// chat conversitions
+export type UserType = {
+  id: string;
+  name: string;
+  avatar_url: string;
+};
+
+export type ConversationType = {
+  id: string;
+  users: UserType[];
+};
+
+export interface ConversationProps {
+  conversation: ConversationType;
+  userId: string;
+}
