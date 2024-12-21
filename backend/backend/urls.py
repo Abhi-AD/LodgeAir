@@ -8,6 +8,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include("apps.property.urls")),
     path("api/auth/", include("apps.useraccount.urls")),
+    path("api/chat/", include("apps.chat.urls")),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
