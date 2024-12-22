@@ -19,6 +19,7 @@ const ConversationPage = async ({ params }: { params: { id: string } }) => {
                <ConversationDetail
                     token={token}
                     userId={userId}
+                    messages={conversation.messages}
                     conversation={conversation.conversation}
                />
           </div>
