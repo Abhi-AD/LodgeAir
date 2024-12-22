@@ -126,5 +126,5 @@ export interface ConversationDetailProps {
   token: string;
   userId: string;
   conversation: ConversationType;
-  // messages: MessageType[];
+  messages: MessageType[];
 }
