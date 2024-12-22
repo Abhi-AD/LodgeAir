@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from apps.chat.models import Conversation, ConversationMessage
+
+from .models import Conversation, ConversationMessage
+
 from apps.useraccount.serializers import UserDetailsSerializer
 
 
@@ -24,4 +26,18 @@ class ConversationDetailSerializer(serializers.ModelSerializer):
             "id",
             "users",
             "modified_at",
+        )
+
+
+class ConversationMessageSerializer(serializers.ModelSerializer):
+    sent_to = UserDetailsSerializer(many=False, read_only=True)
+    created_by = UserDetailsSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = ConversationMessage
+        fields = (
+            "id",
+            "body",
+            "sent_to",
+            "created_by",
         )

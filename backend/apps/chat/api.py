@@ -6,6 +6,7 @@ from apps.chat.models import Conversation, ConversationMessage
 from apps.chat.serializers import (
     ConversationListSerializer,
     ConversationDetailSerializer,
+    ConversationMessageSerializer,
 )
 
 from apps.useraccount.models import User
@@ -21,9 +22,13 @@ def conversations_list(request):
 def conversations_detail(request, pk):
     conversation = request.user.conversations.get(pk=pk)
     conversation_serializer = ConversationDetailSerializer(conversation, many=False)
+    messages_serializer = ConversationMessageSerializer(
+        conversation.messages.all(), many=True
+    )
     return JsonResponse(
         {
             "conversation": conversation_serializer.data,
+            "messages": messages_serializer.data,
         },
         safe=False,
     )
