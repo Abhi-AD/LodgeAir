@@ -3,7 +3,7 @@ from channels.db import database_sync_to_async
 from channels.middleware import BaseMiddleware
 
 from rest_framework_simplejwt.tokens import AccessToken
-
+from rest_framework.authtoken.models import Token
 from apps.useraccount.models import User
 
 
@@ -26,3 +26,11 @@ class TokenAuthMiddleware(BaseMiddleware):
         token_key = query.get("token")
         scope["user"] = await get_user(token_key)
         return await super().__call__(scope, receive, send)
+
+    @database_sync_to_async
+    def get_user(self, token_key):
+        try:
+            token = Token.objects.get(key=token_key)
+            return token.user
+        except Token.DoesNotExist:
+            return AnonymousUser()

@@ -1,7 +1,8 @@
 import json
 from asgiref.sync import sync_to_async
 from channels.generic.websocket import AsyncWebsocketConsumer
-from apps.chat.models import ConversationMessage
+from apps.chat.models import ConversationMessage, Conversation
+from django.contrib.auth import get_user_model
 
 
 class ChatConsumer(AsyncWebsocketConsumer):
@@ -39,10 +40,24 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     @sync_to_async
     def save_message(self, conversation_id, body, sent_to_id):
-        user = self.scope["user"]
-        ConversationMessage.objects.create(
-            conversation_id=conversation_id,
-            body=body,
-            sent_to_id=sent_to_id,
-            created_by=user,
-        )
+        try:
+            User = get_user_model()
+            user = User.objects.get(pk=self.scope["user"].id)  # Ensure user is valid
+            conversation = Conversation.objects.get(
+                pk=conversation_id
+            )  # Validate conversation
+            sent_to = User.objects.get(pk=sent_to_id)  # Validate recipient
+
+            ConversationMessage.objects.create(
+                conversation=conversation,
+                body=body,
+                sent_to=sent_to,
+                created_by=user,
+            )
+            print("Message saved successfully.")
+        except User.DoesNotExist:
+            print("Error: User does not exist.")
+        except Conversation.DoesNotExist:
+            print("Error: Conversation does not exist.")
+        except Exception as e:
+            print(f"Error saving message: {e}")

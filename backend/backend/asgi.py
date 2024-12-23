@@ -23,14 +23,6 @@ from apps.chat.token_auth import TokenAuthMiddleware
 application = ProtocolTypeRouter(
     {
         "http": get_asgi_application(),
-        # "websocket": TokenAuthMiddleware(URLRouter(routing.websocket_urlpatterns)),
-        "websocket": AllowedHostsOriginValidator(
-            AuthMiddlewareStack(
-                URLRouter(
-                    # Add your chat app's routing
-                    routing.websocket_urlpatterns
-                )
-            )
-        ),
+        "websocket": TokenAuthMiddleware(URLRouter(routing.websocket_urlpatterns)),
     }
 )
