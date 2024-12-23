@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const PropertyDetailPage = async ({ params }: { params: { id: string } }) => {
-     const property = await apiService.get(`/api/properties/${params.id}/`)
+     const property = await apiService.gettoken(`api/properties/${params.id}/`)
      const userId = await getUserId();
      return (
           <div className="max-w-[1500px] mx-auto px-6 pb-6">
