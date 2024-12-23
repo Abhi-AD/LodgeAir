@@ -11,11 +11,13 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({ conversation, u
      const otherUser = conversation.users?.find((user) => user.id != userId)
      const [realtimeMessages, setRealtimeMessages] = useState<MessageType[]>([]);
 
-     const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`${process.env.NEXT_PUBLIC_WS_HOST}/ws/${conversation.id}/?token=${token}`, {
+
+
+     const { sendJsonMessage, lastJsonMessage, readyState } = useWebSocket(`ws://127.0.0.1:8000/ws/${conversation.id}/?token=${token}`, {
           share: false,
           shouldReconnect: () => true,
-     },
-     )
+     });
+
 
 
      useEffect(() => {
@@ -40,16 +42,21 @@ const ConversationDetail: React.FC<ConversationDetailProps> = ({ conversation, u
      }, [lastJsonMessage]);
 
      const sendMessage = async () => {
-          console.log('sendMessage'),
-               sendJsonMessage({
-                    event: 'chat_message',
-                    data: {
-                         body: newMessage,
-                         name: myUser?.name,
-                         sent_to_id: otherUser?.id,
-                         conversation_id: conversation.id
-                    }
-               });
+          console.log('Sending message:', {
+               body: newMessage,
+               name: myUser?.name,
+               sent_to_id: otherUser?.id,
+               conversation_id: conversation.id
+          });
+          sendJsonMessage({
+               event: 'chat_message',
+               data: {
+                    body: newMessage,
+                    name: myUser?.name,
+                    sent_to_id: otherUser?.id,
+                    conversation_id: conversation.id
+               }
+          });
           setNewMessage('');
           setTimeout(() => {
                scrollToBottom()
