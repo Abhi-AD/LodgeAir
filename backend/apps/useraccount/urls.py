@@ -11,4 +11,5 @@ urlpatterns = [
     path("logout/", LogoutView.as_view(), name="rest_logout"),
     path("<uuid:pk>/", landlord_detail, name="landlrod_detail"),
     path("myreservations/", reservations_list, name="reservations_list"),
+    path("token/refresh/", get_refresh_view().as_view(), name="token_refresh"),
 ]
