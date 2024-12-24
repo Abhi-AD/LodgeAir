@@ -1,8 +1,13 @@
+'use client';
+import { useSearchModal } from "@/app/hooks/import";
 import { BiSearch } from "react-icons/bi";
 
 const SearchFilter = () => {
+     const searchModal = useSearchModal();
      return (
-          <div className="h-[48px] lg:h-[64px] flex flex-row items-center justify-between border rounded-full">
+          <div
+               onClick={() => searchModal.open('location')}
+               className="h-[48px] lg:h-[64px] flex flex-row items-center justify-between border rounded-full">
                <div className="hidden lg:block">
                     <div className="flex flex-row items-center justify-between">
                          <div className="cursor-pointer  h-[48px] lg:h-[64px] px-8 flex flex-col justify-center rounded-full hover:bg-gray-100">
