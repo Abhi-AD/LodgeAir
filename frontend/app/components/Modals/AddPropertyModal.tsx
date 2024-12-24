@@ -50,7 +50,7 @@ const AddPropertyModal = () => {
                console.log("submitForm", formData);
 
                const response = await apiService.posttoken("api/properties/create/", formData);
-               if (response.sucess) {
+               if (response.success) {
                     console.log("Property added successfully");
                     router.push("/");
                     addPropertyModal.close();
@@ -169,11 +169,11 @@ const AddPropertyModal = () => {
                                    </div>
                               )}
                          </div>
-                         {errors.map((error, index) => {
+                         {errors.map((error, index) => (
                               <div key={index} className="p-5 mb-4 bg-red-500 text-white rounded-xl opacity-80">
                                    {error}
                               </div>
-                         })}
+                         ))}
                          <CustomButton
                               label="Previous"
                               className="mb-2 bg-black hover:bg-gray-800"

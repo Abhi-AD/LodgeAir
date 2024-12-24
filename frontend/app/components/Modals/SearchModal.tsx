@@ -24,6 +24,17 @@ const SearchModal = () => {
      //
 
      const closeAndSearch = () => {
+          const newSearchQuery: SearchQuery = {
+               country: country?.label,
+               checkIn: dateRange.startDate,
+               checkOut: dateRange.endDate,
+               guests: parseInt(numGuests),
+               bedrooms: parseInt(numBedrooms),
+               bathrooms: parseInt(numBathrooms),
+               category: ''
+          }
+
+          searchModal.setQuery(newSearchQuery);
           searchModal.close();
      }
 
