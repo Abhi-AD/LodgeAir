@@ -128,3 +128,24 @@ export interface ConversationDetailProps {
   conversation: ConversationType;
   messages: MessageType[];
 }
+
+// filters
+
+export type SearchQuery = {
+  country: string | undefined;
+  checkIn: Date | undefined;
+  checkOut: Date | undefined;
+  guests: Number;
+  bathrooms: Number;
+  bedrooms: Number;
+  category: string;
+};
+
+export interface SearchModalStore {
+  isOpen: boolean;
+  step: string;
+  open: (step: string) => void;
+  close: () => void;
+  query: SearchQuery;
+  setQuery: (query: SearchQuery) => void;
+}

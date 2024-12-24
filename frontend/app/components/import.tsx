@@ -27,6 +27,7 @@ export { default as LoginModal } from "./Modals/LoginModal";
 export { default as SignUpModal } from "./Modals/SignUpModal";
 export { default as LogoutButton } from "./Modals/LogoutButton";
 export { default as AddPropertyModal } from "./Modals/AddPropertyModal";
+export { default as SearchModal } from "./Modals/SearchModal";
 
 export { default as Category } from "./Addproperty/Category";
 
