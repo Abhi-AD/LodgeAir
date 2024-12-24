@@ -52,7 +52,7 @@ const AddPropertyModal = () => {
                const response = await apiService.posttoken("api/properties/create/", formData);
                if (response.success) {
                     console.log("Property added successfully");
-                    router.push("/");
+                    router.push('/?added=true');
                     addPropertyModal.close();
                } else {
                     console.log("Failed to add property");
